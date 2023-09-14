@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: ceo
-          image: registry.digitalocean.com/rewohub/chad-gpt
+          image: registry.digitalocean.com/rewohub/talking-bots-chad-gpt
           envFrom:
           - configMapRef:
               name: bot-2-config
