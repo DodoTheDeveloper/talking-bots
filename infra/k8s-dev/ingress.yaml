@@ -7,20 +7,20 @@ metadata:
     nginx.ingress.kubernetes.io/use-regex: "true"
 spec:
   rules:
-    - host: talking.local
+    - host: tb.local
       http:
         paths:
           - path: /api/backend/?(.*)
             pathType: Prefix
             backend:
               service:
-                name: scantattoo-backend-service
+                name: talking-bots-backend-service
                 port:
                   number: 3000
           - path: /?(.*)
             pathType: Prefix
             backend:
               service:
-                name: scantattoo-client-service
+                name: talking-bots-client-service
                 port:
                   number: 5173

@@ -1,29 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: scantattoo-client-deployment
+  name: talking-bots-client-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: scantattoo-client
+      app: talking-bots-client
   template:
     metadata:
       labels:
-        app: scantattoo-client
+        app: talking-bots-client
     spec:
       containers:
-        - name: scantattoo-client
-          image: registry.digitalocean.com/rewohub/scantattoo-client
+        - name: talking-bots-client
+          image: registry.digitalocean.com/rewohub/talking-bots-client
           env:
-            - name: APP_URL
-              value: "https://scan.dev"
             - name: BASE_URL
-              value: "https://scan.dev"
+              value: "https://tb.local"
             # For local developing purposes there is a entry for "scan.dev 127.0.0.1" in /etc/hosts.
             # This means that executing a request like "https://scan.dev/api/auth/currentuser" while server side rendering
             # will translate the request to "localhost/api/auth/currentuser. Localhost means the localhost of the pod itself
             # NOT our computer. Therefore we use the Kubernetes DNS for local development. This is not required on production
             # environments since we don't have the entry in /etc/hosts.
-            - name: INGRESS_URL
-              value: "https://scan.dev"

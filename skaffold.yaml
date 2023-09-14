@@ -1,13 +1,13 @@
 apiVersion: skaffold/v3
 kind: Config
 metadata:
-  name: scantattoo
+  name: talking-bots
 build:
   local:
     push: false
     useBuildkit: true
   artifacts:
-  - image: registry.digitalocean.com/rewohub/chad-gpt
+  - image: registry.digitalocean.com/rewohub/talking-bots-chad-gpt
     context: chad-gpt
     docker:
       dockerfile: Dockerfile
@@ -17,9 +17,24 @@ build:
           dest: .
         - src: "src/*.ts"
           dest: .
+  - image: registry.digitalocean.com/rewohub/talking-bots-client
+    context: client
+    docker:
+      dockerfile: Dockerfile
+    sync:
+      manual:
+        - src: "src/**/*.html"
+          dest: .
+        - src: "src/**/*.ts"
+          dest: .
+        - src: "src/**/*.json"
+          dest: .
+        - src: "src/*.ts"
+          dest: .
+        - src: "src/**/*.vue"
+          dest: .
 manifests:
   rawYaml:
-  - infra/k8s-dev/misc-secret.yaml
   - infra/k8s-dev/bots/**
   - infra/k8s-dev/ingress.yaml
 deploy:
