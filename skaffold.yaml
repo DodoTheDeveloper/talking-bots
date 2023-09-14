@@ -1,0 +1,35 @@
+apiVersion: skaffold/v3
+kind: Config
+metadata:
+  name: scantattoo
+build:
+  local:
+    push: false
+    useBuildkit: true
+  artifacts:
+  - image: registry.digitalocean.com/rewohub/chad-gpt
+    context: chad-gpt
+    docker:
+      dockerfile: Dockerfile
+    sync:
+      manual:
+        - src: "src/**/*.ts"
+          dest: .
+        - src: "src/*.ts"
+          dest: .
+manifests:
+  rawYaml:
+  - infra/k8s-dev/misc-secret.yaml
+  - infra/k8s-dev/bots/**
+  - infra/k8s-dev/ingress.yaml
+deploy:
+  kubeContext: docker-desktop
+portForward:
+  - resourceType: service
+    resourceName: talking-bots-bot-1-service
+    port: 3000
+    localPort: 4001
+  - resourceType: service
+    resourceName: talking-bots-bot-2-service
+    port: 3000
+    localPort: 4002

@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: scantattoo-client-service
+spec:
+  selector:
+    app: scantattoo-client
+  ports:
+    - name: scantattoo-client
+      protocol: TCP
+      port: 5173
+      targetPort: 5173
+

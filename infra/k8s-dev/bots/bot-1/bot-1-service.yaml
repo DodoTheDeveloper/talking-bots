@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: talking-bots-bot-1-service
+spec:
+  selector:
+    app: talking-bots-bot-1
+  ports:
+    - name: bot-1
+      protocol: TCP
+      port: 3000
+      targetPort: 3000

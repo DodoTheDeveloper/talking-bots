@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: talking-bots-bot-2-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: talking-bots-bot-2
+  template:
+    metadata:
+      labels:
+        app: talking-bots-bot-2
+    spec:
+      containers:
+        - name: ceo
+          image: registry.digitalocean.com/rewohub/chad-gpt
+          envFrom:
+          - configMapRef:
+              name: bot-2-config
+          - secretRef:
+              name: bot-2-secret
+
