@@ -36,9 +36,16 @@ build:
 manifests:
   rawYaml:
   - infra/k8s-dev/bots/**
+  - infra/k8s-dev/client/**
+  - infra/k8s-dev/ingress-crs.yaml
   - infra/k8s-dev/ingress.yaml
 deploy:
   kubeContext: docker-desktop
+  kubectl:
+    hooks:
+      before:
+        - host:
+            command: ["kubectl", "delete", "namespace", "ingress-nginx", "--ignore-not-found=true", "--grace-period=0"]
 portForward:
   - resourceType: service
     resourceName: talking-bots-bot-1-service
